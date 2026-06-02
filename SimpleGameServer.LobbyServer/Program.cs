@@ -13,8 +13,12 @@ builder.Services.AddSessionStore(builder.Configuration);
 
 // DB 연결 팩토리. ConnectionStrings:GameDb 기반 SQLite 연결을 생성.
 builder.Services.AddSingleton<IDbConnectionFactory, SqliteConnectionFactory>();
+builder.Services.AddSingleton<DbInitializer>();
 
 var app = builder.Build();
+
+// 기동 시 SQLite 스키마 보장 + 테스트 데이터 시드 (개발 편의).
+await app.Services.GetRequiredService<DbInitializer>().InitializeAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
