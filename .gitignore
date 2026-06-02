@@ -482,3 +482,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Runtime SQLite database (created on startup by DbInitializer)
+simplegame.db
+*.db-shm
+*.db-wal
