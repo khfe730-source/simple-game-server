@@ -1,4 +1,5 @@
 using SimpleGameServer.Common.Sessions;
+using SimpleGameServer.LobbyServer.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddSwaggerGen();
 
 // Session:Backend 설정값에 따라 ISessionStore 구현체를 등록 (현재 InMemory만 지원).
 builder.Services.AddSessionStore(builder.Configuration);
+
+// DB 연결 팩토리. ConnectionStrings:GameDb 기반 SQLite 연결을 생성.
+builder.Services.AddSingleton<IDbConnectionFactory, SqliteConnectionFactory>();
 
 var app = builder.Build();
 
